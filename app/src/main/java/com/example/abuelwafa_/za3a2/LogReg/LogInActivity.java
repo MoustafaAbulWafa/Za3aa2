@@ -150,7 +150,7 @@ Handler handler;
 
     public void displayText(String  str){
 
-        final String finalMsg =  " says " + str;
+        final String finalMsg =  " says jj " + str;
         Log.d("MoustafaMsg",finalMsg);
         try {
             latlngs = new ArrayList<>();
