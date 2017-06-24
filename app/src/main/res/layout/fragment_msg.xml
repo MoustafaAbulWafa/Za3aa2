@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.abuelwafa_.za3a2.TapFragments.ChatFrag">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+
+            <ListView
+                android:id="@+id/list_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:transcriptMode="alwaysScroll" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/msg_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:hint="Input message" />
+
+            <ImageButton
+                android:layout_marginTop="10dp"
+                android:id="@+id/btn_chat_send"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@color/colorAccent"
+                android:src="@android:drawable/ic_menu_send"
+                android:text="Send"
+                android:textColor="@color/background_material_light" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
