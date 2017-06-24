@@ -149,6 +149,7 @@ Handler handler;
         }
 
     public void displayText(String  str){
+
         final String finalMsg =  " says " + str;
         Log.d("MoustafaMsg",finalMsg);
         try {
