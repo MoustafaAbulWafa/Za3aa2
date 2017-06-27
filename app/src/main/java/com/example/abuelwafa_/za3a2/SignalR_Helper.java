@@ -2,6 +2,12 @@ package com.example.abuelwafa_.za3a2;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
+
+import com.example.abuelwafa_.za3a2.LogReg.LogInActivity;
+import com.example.abuelwafa_.za3a2.TapFragments.ChatFrag;
+import com.example.abuelwafa_.za3a2.TapFragments.MsgsHistFrag;
+import com.example.abuelwafa_.za3a2.TapFragments.NotiFrag;
 
 import microsoft.aspnet.signalr.client.Platform;
 import microsoft.aspnet.signalr.client.SignalRFuture;
@@ -14,6 +20,14 @@ import microsoft.aspnet.signalr.client.hubs.HubProxy;
  */
 
 public class SignalR_Helper {
+    final static  SignalR_Helper SIGNAL_R_HELPER = new SignalR_Helper();
+    static Object context;
+    public SignalR_Helper() {
+        SignalR_Helper_init();
+        hub.subscribe(this);
+    }
+
+
     public static HubConnection getConnection() {
         return connection;
     }
@@ -51,11 +65,45 @@ public class SignalR_Helper {
     public static SignalRFuture<Void> awaitConnection;
   static   String host ;
 
-    public  static void SignalR_Helper_init(Context context) {
+    public  static void SignalR_Helper_init() {
         Platform.loadPlatformComponent(new AndroidPlatformComponent());
-        host = "http://172.31.225.200:8070";
+        host = "http://192.168.101.14:8070";
         connection = new HubConnection(host);
         hub = connection.createHubProxy( "chapter3Hub" );
         awaitConnection = connection.start();
     }
+
+
+
+    public static  void setClassObject(Object sub)
+    {
+        context = sub;
+    }
+
+    public void  startChat(final String str) {
+        ((ChatFrag)context).startChat(str);
+    }
+        public void LogInCheck(final String str) {
+        ((LogInActivity)context).LogInCheck(str);
+
+    }
+
+    public void displayText(String  str) {
+        ((LogInActivity)context).displayText(str);
+    }
+
+
+    public void getNotifics(String str){
+        ((NotiFrag)context).getNotifics(str);
+    }
+
+    public void Recieve(String str) {
+        ((MsgsHistFrag)context).Recieve(str);
+    }
+    public void newMsg(String str) {
+        Log.d("NewMsg",str);
+        ((MsgsHistFrag)context).Recieve(str);
+    }
+
+
 }

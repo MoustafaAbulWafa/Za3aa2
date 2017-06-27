@@ -24,12 +24,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import microsoft.aspnet.signalr.client.Platform;
-import microsoft.aspnet.signalr.client.SignalRFuture;
-import microsoft.aspnet.signalr.client.http.android.AndroidPlatformComponent;
-import microsoft.aspnet.signalr.client.hubs.HubConnection;
-import microsoft.aspnet.signalr.client.hubs.HubProxy;
-
 public class LogInActivity extends AppCompatActivity {
 
 
@@ -51,7 +45,6 @@ Handler handler;
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
         }
-
         try {
 
             SignalR_Helper.getAwaitConnection().get();
@@ -65,7 +58,8 @@ Handler handler;
                         Toast.makeText(getApplicationContext(),"The E-Mail Or The Pass isn't set ..!", Toast.LENGTH_LONG).show();
                     else
                     { try {
-                        SignalR_Helper.getHub().invoke("loging",t1.getText().toString(),t2.getText().toString()).get();
+
+                        SignalR_Helper.getHub().invoke("login",t1.getText().toString(),t2.getText().toString()).get();
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -99,7 +93,7 @@ Handler handler;
         SignUp = (Button) findViewById(R.id.btn_register);
         t1 = (EditText) findViewById(R.id.email);
         t2 = (EditText) findViewById(R.id.pass);
-        SignalR_Helper.SignalR_Helper_init(this);
+       // SignalR_Helper.SignalR_Helper_init(this);
 
 
         SignUp.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +103,9 @@ Handler handler;
             }
         });
 
-        SignalR_Helper.getHub().subscribe(this);
+        SignalR_Helper.setClassObject(this);
+      //  SignalR_Helper signalR_helper = new SignalR_Helper();
+   //    SignalR_Helper.getHub().subscribe(this);
     }
 
     public void LogInCheck(final String str){
@@ -123,8 +119,7 @@ Handler handler;
 
                         if(loc != null) {
                         Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-
-                            SignalR_Helper.getHub().invoke("broadcastMessage",""+12.3+" "+13.2).get();
+                            SignalR_Helper.getHub().invoke("broadcastMessage",""+longitude+" "+latitude).get();
 
                     }
 

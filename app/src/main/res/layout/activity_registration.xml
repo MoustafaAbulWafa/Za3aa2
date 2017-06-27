@@ -129,19 +129,19 @@
                 android:layout_weight="16" />
 
             <EditText
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
+                android:layout_weight="16"
+                android:background="@drawable/register_form"
                 android:drawableLeft="@drawable/ic_call_black_24dp"
                 android:drawablePadding="15dp"
-                android:padding="10dp"
-                android:background="@drawable/register_form"
-                android:id="@+id/phone"
-                android:layout_weight="16"
                 android:hint="@string/Phone"
-                android:textColor="@color/black"/>
+                android:padding="10dp"
+                android:textColor="@color/black" />
 
             <EditText
                 android:layout_width="match_parent"

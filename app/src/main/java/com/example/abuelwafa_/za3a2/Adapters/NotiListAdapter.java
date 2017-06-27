@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ boolean flag = false;
     public NotiListAdapter(ArrayList<NotiItem> singers, Context context) {
         this.Notific = singers;
         this.context = context;
-        Toast.makeText(context, "Hereoncreateview"+Notific.size(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Hereoncreateview"+Notific.size(), Toast.LENGTH_SHORT).show();
 
     }
 public NotiListAdapter(ArrayList<MsgItem> Msgs,boolean flag,Context context){
@@ -66,7 +67,10 @@ public NotiListAdapter(ArrayList<MsgItem> Msgs,boolean flag,Context context){
         View view = convertView;
         if(view == null){
             LayoutInflater lay= LayoutInflater.from(context);
+         if(flag)
             view  = lay.inflate(R.layout.row_msg_item , null);
+            else
+             view  = lay.inflate(R.layout.row_noti_item , null);
             holder = new Holder(view);
             view.setTag(holder);
         }
@@ -81,7 +85,30 @@ if(!flag) {
 
         holder.u_name.setText(Notific.get(position).getU_name());
         holder.u_msg.setText(Notific.get(position).getU_msg());
-        holder.msg_time.setText(Notific.get(position).getMsg_time());
+        String [] str = Notific.get(position).getMsg_time().split(" ");
+        String str1= str[1].substring(0,4);
+        holder.msg_time.setText(holder.msg_time.getText()+str1 + " " + str[2]);
+holder.interest.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(context,"Button Interest Clicked",Toast.LENGTH_SHORT).show();
+    }
+});
+    holder.angry.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(context,"Button Annoyed Clicked",Toast.LENGTH_SHORT).show();
+        }
+    });
+
+    holder.re_broad.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(context,"Button Rebroadcast  Clicked",Toast.LENGTH_SHORT).show();
+        }
+    });
+
+
 
     }
 
@@ -114,8 +141,8 @@ else {
     }
     private int Dublicated(String not_id,int j) {
     int pos = -1;
-        for(int i=j+1;i<Notific.size();i++){
-            if(Notific.get(i).getNot_id().equals(not_id))
+        for(int i=j+1;i<Msgs.size();i++){
+            if(Msgs.get(i).getNot_id().equals(not_id))
                 return i;
         }
 
@@ -125,12 +152,16 @@ else {
     class Holder {
         public View view;
         public TextView u_name,u_msg,msg_time;
-
+Button interest,angry,re_broad;
         public Holder(View v) {
             this.view = v;
             u_name = (TextView) view.findViewById(R.id.u_name);
             u_msg = (TextView) view.findViewById(R.id.u_msg);
             msg_time = (TextView) view.findViewById(R.id.msg_t);
+            if (!flag) {
+                interest = (Button) view.findViewById(R.id.like);
+                angry = (Button) view.findViewById(R.id.angry);
+                re_broad = (Button) view.findViewById(R.id.reprodcat);
 
-        }
-    }}
+            }
+        }   }}

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.abuelwafa_.za3a2.Adapters.MessageAdapter;
+import com.example.abuelwafa_.za3a2.AidClases.MsgItem;
 import com.example.abuelwafa_.za3a2.Chating.ChatMessage;
 import com.example.abuelwafa_.za3a2.R;
 import com.example.abuelwafa_.za3a2.SignalR_Helper;
@@ -38,7 +39,7 @@ Context context;
     boolean isMine = true;
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
-
+    MsgItem user;
     public    Handler handler;
     @SuppressLint("ValidFragment")
     public ChatFrag(Context context) {
@@ -48,6 +49,11 @@ Context context;
     }
 
     static boolean on = false;
+
+    public ChatFrag(MsgItem user) {
+        this.user = user;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,15 +67,14 @@ Context context;
         editText = (EditText) root.findViewById(R.id.msg_type);
 
         //set ListView adapter first
-        adapter = new MessageAdapter(context, R.layout.item_chat_left, chatMessages);
+        adapter = new MessageAdapter(getContext(), R.layout.item_chat_right, chatMessages);
         listView.setAdapter(adapter);
 
-        if(!on)
-        {
-            SignalR_Helper.getHub().subscribe(this);
-            on = true;
-        }
-        //event for button SEND
+            ChatMessage chatMessage = new ChatMessage(user.getU_msg(), "R");
+            chatMessages.add(chatMessage);
+            adapter.notifyDataSetChanged();
+
+        SignalR_Helper.setClassObject(this);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +83,11 @@ Context context;
                 } else {
                     //add message to list
                     try {
-                        SignalR_Helper.getHub().invoke("serveMessage",""+longitude+" "+latitude,editText.getText().toString()).get();
-
+                        ChatMessage chatMessage = new ChatMessage(editText.getText().toString(), "S");
+                        chatMessages.add(chatMessage);
+                        adapter.notifyDataSetChanged();
+                        SignalR_Helper.getHub().invoke("chatting",user.getNot_id(),editText.getText().toString()).get();
+                        editText.setText("");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -87,15 +95,7 @@ Context context;
 
                     }
 
-                    ChatMessage chatMessage = new ChatMessage(editText.getText().toString(), isMine);
-                    chatMessages.add(chatMessage);
-                    adapter.notifyDataSetChanged();
-                    editText.setText("");
-                    if (isMine) {
-                        isMine = false;
-                    } else {
-                        isMine = true;
-                    }
+
                 }
             }
         });
@@ -106,20 +106,16 @@ Context context;
         return root;
     }
 
-    public void  RecieveMessage(final String str){
+    public void  startChat(final String str){
         Log.d("ReciveMSg",str);
 
         handler.post(new Runnable() {
             @Override
             public void run() {
-                ChatMessage chatMessage = new ChatMessage(str, isMine);
+                ChatMessage chatMessage = new ChatMessage(str, "R");
                 chatMessages.add(chatMessage);
                 adapter.notifyDataSetChanged();
-                if (isMine) {
-                    isMine = false;
-                } else {
-                    isMine = true;
-                }
+
             }
         });
 

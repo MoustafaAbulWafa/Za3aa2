@@ -15,7 +15,7 @@
         >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="600px"
+            android:layout_height="300px"
             android:src="@mipmap/logo"
             android:layout_gravity="center"
             />

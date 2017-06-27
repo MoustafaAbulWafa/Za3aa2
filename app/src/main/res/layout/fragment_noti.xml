@@ -3,21 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.abuelwafa_.za3a2.TapFragments.NotiFrag">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Moustafa Where is the list"
-        />
-    <ListView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/noti_list"
-    />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/noti_list"
+            style="@style/Animation.AppCompat.DropDownUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="@dimen/activity_horizontal_margin"
+            android:theme="@style/Animation.AppCompat.DropDownUp" />
+    </LinearLayout>
 
 </FrameLayout>

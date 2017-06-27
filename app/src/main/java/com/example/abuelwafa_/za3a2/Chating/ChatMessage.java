@@ -7,9 +7,9 @@ package com.example.abuelwafa_.za3a2.Chating;
 public class ChatMessage {
 
     private String content;
-    private boolean isMine;
+    private String isMine;
 
-    public ChatMessage(String content, boolean isMine) {
+    public ChatMessage(String content, String isMine) {
         this.content = content;
         this.isMine = isMine;
     }
@@ -18,7 +18,7 @@ public class ChatMessage {
         return content;
     }
 
-    public boolean isMine() {
+    public String isMine() {
         return isMine;
     }
 

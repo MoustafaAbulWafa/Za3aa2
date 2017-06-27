@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,18 +44,17 @@ static  ArrayList<NotiItem> Notifics;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         handler=new Handler();
-
         View Root =  inflater.inflate(R.layout.fragment_noti, container, false);
         list  = (ListView) Root.findViewById(R.id.noti_list);
 
-        if(!on) {
-            SignalR_Helper.getHub().subscribe(this);
-            Notifics = new ArrayList<>();
-            on = true;
-        }
+        if(!on){
+    Notifics = new ArrayList<>();
+    on = true;
+}
 
 
         try {
+
             SignalR_Helper.getHub().invoke("get").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,13 +62,15 @@ static  ArrayList<NotiItem> Notifics;
             e.printStackTrace();
         }
 
-        Toast.makeText(context, "Hereoncreateview", Toast.LENGTH_SHORT).show();
-
-
+        SignalR_Helper.setClassObject(this);
         notiListAdapter = new NotiListAdapter(Notifics,context);
         list.setAdapter(notiListAdapter);
-
-
+list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(getContext(),"list Item Clicked",Toast.LENGTH_SHORT).show();
+    }
+});
         return Root;
     }
 

@@ -33,10 +33,10 @@ public class MessageAdapter extends ArrayAdapter<ChatMessage> {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         int layoutResource = 0; // determined by view type
-        ChatMessage chatMessage = getItem(position);
-        int viewType = getItemViewType(position);
+        ChatMessage chatMessage = messages.get(position);
+//        int viewType = getItemViewType(position);
 
-        if (chatMessage.isMine()) {
+        if (chatMessage.isMine().equals("R")) {
             layoutResource = R.layout.item_chat_left;
         } else {
             layoutResource = R.layout.item_chat_right;

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.abuelwafa_.za3a2.Adapters.NotiListAdapter;
@@ -17,6 +18,7 @@ import com.example.abuelwafa_.za3a2.AidClases.MsgItem;
 import com.example.abuelwafa_.za3a2.AidClases.NotiItem;
 import com.example.abuelwafa_.za3a2.R;
 import com.example.abuelwafa_.za3a2.SignalR_Helper;
+import com.example.abuelwafa_.za3a2.TabControl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,19 +50,42 @@ public class MsgsHistFrag extends Fragment {
         View Root =  inflater.inflate(R.layout.fragment_msgs_hist, container, false);
 
         list  = (ListView) Root.findViewById(R.id.msghis_list);
-
-
+handler = new Handler();
+        SignalR_Helper.setClassObject(this);
         if(!on) {
-            SignalR_Helper.getHub().subscribe(this);
             Msgs = new ArrayList<>();
             on = true;
         }
+        try {
+
+            SignalR_Helper.getHub().invoke("getMsgs").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         notiListAdapter = new NotiListAdapter(Msgs,true,context);
         list.setAdapter(notiListAdapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ChatFrag Messagges = new ChatFrag(Msgs.get(i));
+                getFragmentManager().beginTransaction().replace(R.id.content,Messagges).commit();
+                TabControl.navigation.getMenu().getItem(1).setChecked(true);
+
+
+            }
+        });
+
+
+
         return Root;
+
     }
 
-    public void RecieveMessage(String str){
+    public void Recieve(String str){
     MsgItem msgItem;
     final ArrayList<MsgItem> Msgs1 = new ArrayList<>();
     try {
@@ -83,7 +108,7 @@ public class MsgsHistFrag extends Fragment {
             public void run() {
 
                 try {
-                   // notiListAdapter.getData().clear();
+                    notiListAdapter.getData1().clear();
                     notiListAdapter.getData1().addAll(Msgs1);
                     notiListAdapter.notifyDataSetChanged();
                     Msgs=Msgs1;

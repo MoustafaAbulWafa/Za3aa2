@@ -63,7 +63,7 @@ public class TabControl extends AppCompatActivity {
 
     };
     private Handler handler;
-
+ public static   BottomNavigationView navigation;
 
     static boolean on = false;
     ArrayList<NotiItem> Notifics;
@@ -72,7 +72,7 @@ public class TabControl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
