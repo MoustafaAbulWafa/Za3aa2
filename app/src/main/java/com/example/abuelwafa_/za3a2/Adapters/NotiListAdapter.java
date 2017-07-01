@@ -1,6 +1,11 @@
 package com.example.abuelwafa_.za3a2.Adapters;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +17,11 @@ import android.widget.Toast;
 import com.example.abuelwafa_.za3a2.AidClases.MsgItem;
 import com.example.abuelwafa_.za3a2.AidClases.NotiItem;
 import com.example.abuelwafa_.za3a2.R;
+import com.example.abuelwafa_.za3a2.TabControl;
+import com.example.abuelwafa_.za3a2.TapFragments.ChatFrag;
 import com.example.abuelwafa_.za3a2.TapFragments.NotiFrag;
 
 import java.util.ArrayList;
-
 /**
  * Created by Abu El Wafa ^_^ on 21/06/2017.
  */
@@ -62,15 +68,16 @@ public NotiListAdapter(ArrayList<MsgItem> Msgs,boolean flag,Context context){
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder;
         View view = convertView;
         if(view == null){
             LayoutInflater lay= LayoutInflater.from(context);
-         if(flag)
-            view  = lay.inflate(R.layout.row_msg_item , null);
-            else
-             view  = lay.inflate(R.layout.row_noti_item , null);
+         if(flag) {
+             view = lay.inflate(R.layout.row_noti_item, null);
+         }  else {
+             view = lay.inflate(R.layout.row_msg_item, null);
+         }
             holder = new Holder(view);
             view.setTag(holder);
         }
@@ -87,13 +94,28 @@ if(!flag) {
         holder.u_msg.setText(Notific.get(position).getU_msg());
         String [] str = Notific.get(position).getMsg_time().split(" ");
         String str1= str[1].substring(0,4);
-        holder.msg_time.setText(holder.msg_time.getText()+str1 + " " + str[2]);
-holder.interest.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(context,"Button Interest Clicked",Toast.LENGTH_SHORT).show();
+        holder.msg_time.setText("at "+str1 + " " + str[2]);
+
     }
-});
+
+else {
+    final int pos = Dublicated(Msgs.get(position).getNot_id(), position);
+    if (pos != -1) {
+        holder.u_name.setText(Msgs.get(pos).getU_name());
+        holder.u_msg.setText(Msgs.get(pos).getU_msg());
+        holder.msg_time.setText(Msgs.get(pos).getMsg_time());
+
+    } else {
+        holder.u_name.setText(Msgs.get(position).getU_name());
+        holder.u_msg.setText(Msgs.get(position).getU_msg());
+        holder.msg_time.setText(Msgs.get(position).getLoc() + " at : "  + Msgs.get(position).getMsg_time() );
+    }
+    holder.interest.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(context,"Button Interest Clicked",Toast.LENGTH_SHORT).show();
+        }
+    });
     holder.angry.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -107,24 +129,16 @@ holder.interest.setOnClickListener(new View.OnClickListener() {
             Toast.makeText(context,"Button Rebroadcast  Clicked",Toast.LENGTH_SHORT).show();
         }
     });
+    holder.rep.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+            ChatFrag Messagges = new ChatFrag(Msgs.get(position));
+            ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.content,Messagges).commit();
+            TabControl.navigation.getMenu().getItem(1).setChecked(true);
+        }
+    });
 
-
-    }
-
-else {
-
-    int pos = Dublicated(Msgs.get(position).getNot_id(), position);
-    if (pos != -1) {
-        holder.u_name.setText(Msgs.get(pos).getU_name());
-        holder.u_msg.setText(Msgs.get(pos).getU_msg());
-        holder.msg_time.setText(Msgs.get(pos).getMsg_time());
-
-    } else {
-        holder.u_name.setText(Msgs.get(position).getU_name());
-        holder.u_msg.setText(Msgs.get(position).getU_msg());
-        holder.msg_time.setText(holder.msg_time.getText() + Msgs.get(position).getLoc() + " at : "  + Msgs.get(position).getMsg_time() );
-    }
 }
         return view;
     }
@@ -152,16 +166,16 @@ else {
     class Holder {
         public View view;
         public TextView u_name,u_msg,msg_time;
-Button interest,angry,re_broad;
+Button interest,angry,re_broad,rep;
         public Holder(View v) {
             this.view = v;
             u_name = (TextView) view.findViewById(R.id.u_name);
             u_msg = (TextView) view.findViewById(R.id.u_msg);
             msg_time = (TextView) view.findViewById(R.id.msg_t);
-            if (!flag) {
+            if (flag) {
                 interest = (Button) view.findViewById(R.id.like);
                 angry = (Button) view.findViewById(R.id.angry);
                 re_broad = (Button) view.findViewById(R.id.reprodcat);
-
+                rep = (Button) view.findViewById(R.id.rep);
             }
         }   }}

@@ -106,6 +106,8 @@ Context context;
         return root;
     }
 
+
+
     public void  startChat(final String str){
         Log.d("ReciveMSg",str);
 

@@ -48,8 +48,7 @@
             android:layout_width="0dp"
             android:layout_weight=".1"
             android:layout_height="wrap_content"
-            android:text="Re-Proadcast"
-
+            android:text="Re-broadcast"
             android:id="@+id/like"
             />
         <Button
@@ -59,13 +58,20 @@
             android:layout_height="wrap_content"
             android:text="Interested"
             android:id="@+id/angry"
-            /><Button
-
+            />
+        <Button
         android:layout_width="0dp"
         android:layout_weight=".1"
         android:layout_height="wrap_content"
         android:text="Annoyed"
         android:id="@+id/reprodcat"
         />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="wrap_content"
+            android:text="Replay"
+            android:id="@+id/rep"
+            />
     </LinearLayout>
 </LinearLayout>

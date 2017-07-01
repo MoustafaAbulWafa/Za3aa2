@@ -124,7 +124,6 @@ Handler handler;
                     }
 
                     else {
-                        loc = gps.getLocation();
                         Toast.makeText(getApplicationContext(), "Wait ... !", Toast.LENGTH_LONG).show();
                             SignalR_Helper.getHub().invoke("broadcastMessage",""+12.3+" "+13.2).get();
 
@@ -175,9 +174,6 @@ Handler handler;
         });
         Intent in = new Intent(LogInActivity.this,TabControl.class);
         in.putParcelableArrayListExtra("latlngs",latlngs);
-        //connection.disconnect();
-
-        //  connection.stop();
         startActivity(in);
     }
 

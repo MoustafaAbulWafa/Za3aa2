@@ -38,8 +38,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".TapFragments.MapFrag1"
-            android:label="@string/title_activity_map_frag1"></activity>
+            android:name=".BroadCastingActivity"
+            android:label="@string/title_activity_broad_casting"
+            android:parentActivityName=".TabControl"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.abuelwafa_.za3a2.TabControl" />
+        </activity>
     </application>
 
 </manifest>
