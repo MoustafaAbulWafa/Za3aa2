@@ -67,7 +67,7 @@ public class SignalR_Helper {
 
     public  static void SignalR_Helper_init() {
         Platform.loadPlatformComponent(new AndroidPlatformComponent());
-        host = "http://192.168.1.12:8070";
+        host = "http://192.168.1.34:8070";
         connection = new HubConnection(host);
         hub = connection.createHubProxy( "chapter3Hub" );
         awaitConnection = connection.start();
@@ -90,10 +90,20 @@ public class SignalR_Helper {
     }
 
 
+    public void setProfs(String str){
+        ((BroadCastingActivity)context).setProfs(str);
+    }
+    public  void notifi(String s){
+        Log.d("notifi1",s);
+        ((BroadCastingActivity)context).notifi(s);
+
+    }
     public void displayText(String  str) {
         ((LogInActivity)context).displayText(str);
     }
-
+    public void displayText1(String  str) {
+        ((BroadCastingActivity)context).displayText1(str);
+    }
     public void getNotifics(String str){
         ((NotiFrag)context).getNotifics(str);
     }

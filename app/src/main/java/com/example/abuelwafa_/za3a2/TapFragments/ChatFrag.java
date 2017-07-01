@@ -1,10 +1,14 @@
 package com.example.abuelwafa_.za3a2.TapFragments;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.example.abuelwafa_.za3a2.LogReg.LogInActivity.latitude;
 import static com.example.abuelwafa_.za3a2.LogReg.LogInActivity.longitude;
 
@@ -48,7 +53,7 @@ Context context;
         // Required empty public constructor
     }
 
-    static boolean on = false;
+    static boolean on = true;
 
     public ChatFrag(MsgItem user) {
         this.user = user;
@@ -86,7 +91,10 @@ Context context;
                         ChatMessage chatMessage = new ChatMessage(editText.getText().toString(), "S");
                         chatMessages.add(chatMessage);
                         adapter.notifyDataSetChanged();
+
+                            SignalR_Helper.getHub().invoke("sendNotific", user.getNot_id(), editText.getText().toString()).get();
                         SignalR_Helper.getHub().invoke("chatting",user.getNot_id(),editText.getText().toString()).get();
+
                         editText.setText("");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -110,7 +118,7 @@ Context context;
 
     public void  startChat(final String str){
         Log.d("ReciveMSg",str);
-
+        on = false;
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -122,4 +130,6 @@ Context context;
         });
 
     }
+
+
 }

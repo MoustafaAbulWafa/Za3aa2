@@ -34,7 +34,7 @@ public class MessageAdapter extends ArrayAdapter<ChatMessage> {
 
         int layoutResource = 0; // determined by view type
         ChatMessage chatMessage = messages.get(position);
-//        int viewType = getItemViewType(position);
+        int viewType = getItemViewType(position);
 
         if (chatMessage.isMine().equals("R")) {
             layoutResource = R.layout.item_chat_left;
@@ -60,7 +60,7 @@ public class MessageAdapter extends ArrayAdapter<ChatMessage> {
     public int getViewTypeCount() {
         // return the total number of view types. this value should never change
         // at runtime
-        return 1;
+        return 2;
     }
 
     @Override

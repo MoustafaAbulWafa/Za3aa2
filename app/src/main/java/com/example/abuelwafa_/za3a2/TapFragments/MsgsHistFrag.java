@@ -50,7 +50,7 @@ public class MsgsHistFrag extends Fragment {
         View Root =  inflater.inflate(R.layout.fragment_msgs_hist, container, false);
 
         list  = (ListView) Root.findViewById(R.id.msghis_list);
-handler = new Handler();
+        handler = new Handler();
         SignalR_Helper.setClassObject(this);
         if(!on) {
             Msgs = new ArrayList<>();

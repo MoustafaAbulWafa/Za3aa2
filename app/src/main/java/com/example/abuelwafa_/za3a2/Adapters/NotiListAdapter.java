@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class NotiListAdapter extends BaseAdapter{
     ArrayList<MsgItem> Msgs;
 boolean flag = false;
+    boolean on1=false,on2=false,on3=false,on4=false;
     public NotiListAdapter(ArrayList<NotiItem> singers, Context context) {
         this.Notific = singers;
         this.context = context;
@@ -69,7 +70,7 @@ public NotiListAdapter(ArrayList<MsgItem> Msgs,boolean flag,Context context){
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Holder holder;
+        final Holder holder;
         View view = convertView;
         if(view == null){
             LayoutInflater lay= LayoutInflater.from(context);
@@ -103,22 +104,55 @@ else {
     if (pos != -1) {
         holder.u_name.setText(Msgs.get(pos).getU_name());
         holder.u_msg.setText(Msgs.get(pos).getU_msg());
-        holder.msg_time.setText(Msgs.get(pos).getMsg_time());
+        String [] str = Msgs.get(position).getMsg_time().split(" ");
+        String str1= str[1].substring(0,4);
+        holder.msg_time.setText("at "+str1 + " " + str[2]);
+        holder.loc.setText("in: "+Msgs.get(position).getLoc());
 
     } else {
         holder.u_name.setText(Msgs.get(position).getU_name());
         holder.u_msg.setText(Msgs.get(position).getU_msg());
-        holder.msg_time.setText(Msgs.get(position).getLoc() + " at : "  + Msgs.get(position).getMsg_time() );
+        String [] str = Msgs.get(position).getMsg_time().split(" ");
+        String str1= str[1].substring(0,4);
+        holder.msg_time.setText("at "+str1 + " " + str[2]);
+        holder.loc.setText("in: "+Msgs.get(position).getLoc());
+
     }
     holder.interest.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            int m1 = R.drawable.like2;
+            int m2 = R.drawable.like1;
+            if(!on3){
+                holder.interest.setBackgroundResource(m2);
+                on3=true;
+            }
+            else
+            {
+                holder.interest.setBackgroundResource(m1);
+                on3=false;
+            }
+
             Toast.makeText(context,"Button Interest Clicked",Toast.LENGTH_SHORT).show();
         }
     });
     holder.angry.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+
+            int m1 = R.drawable.ann;
+            int m2 = R.drawable.ann2;
+            if(!on4){
+                holder.angry.setBackgroundResource(m2);
+                on4=true;
+            }
+            else
+            {
+                holder.angry.setBackgroundResource(m1);
+                on4=false;
+            }
             Toast.makeText(context,"Button Annoyed Clicked",Toast.LENGTH_SHORT).show();
         }
     });
@@ -126,12 +160,35 @@ else {
     holder.re_broad.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            int m1 = R.drawable.bro1;
+            int m2 = R.drawable.bro2;
+            if(!on1){
+                holder.re_broad.setBackgroundResource(m2);
+                on1=true;
+            }
+            else
+            {
+                holder.re_broad.setBackgroundResource(m1);
+                on1=false;
+            }
             Toast.makeText(context,"Button Rebroadcast  Clicked",Toast.LENGTH_SHORT).show();
         }
     });
     holder.rep.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            int m1 = R.drawable.replay;
+            int m2 = R.drawable.replay2;
+            if(!on2){
+                holder.rep.setBackgroundResource(m2);
+                on2=true;
+            }
+            else
+            {
+                holder.rep.setBackgroundResource(m1);
+                on2=false;
+            }
 
             ChatFrag Messagges = new ChatFrag(Msgs.get(position));
             ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.content,Messagges).commit();
@@ -165,7 +222,7 @@ else {
 
     class Holder {
         public View view;
-        public TextView u_name,u_msg,msg_time;
+        public TextView u_name,u_msg,msg_time,loc;
 Button interest,angry,re_broad,rep;
         public Holder(View v) {
             this.view = v;
@@ -173,6 +230,7 @@ Button interest,angry,re_broad,rep;
             u_msg = (TextView) view.findViewById(R.id.u_msg);
             msg_time = (TextView) view.findViewById(R.id.msg_t);
             if (flag) {
+                loc = (TextView) view.findViewById(R.id.place);
                 interest = (Button) view.findViewById(R.id.like);
                 angry = (Button) view.findViewById(R.id.angry);
                 re_broad = (Button) view.findViewById(R.id.reprodcat);

@@ -16,7 +16,11 @@
     <string name="photo">add photo</string>
     <string name="title_activity_name"></string>
     <string name="title_activity_map_frag1">Map</string>
-
+    <string-array name="planets_array">
+        <item>15 ... 30</item>
+        <item>30 ... 45</item>
+        <item>45 ... 60</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_broad_cast">BroadCastActivity</string>

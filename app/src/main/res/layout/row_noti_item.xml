@@ -1,76 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/u_name"
+        android:text="userName"
+        android:textSize="25dp"
+        android:padding="35px"
+        android:textStyle="bold"
+        android:textColor="#073a5b"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/u_name"
-    android:text="Moustafa"
-    android:textSize="30dp"
-    android:textStyle="bold"
-    android:textColor="@color/colorAccent"
-    />
-    <TextView
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/msg_t"
-        android:text="  at  "
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        />
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:text="Place"
+            android:textSize="25dp"
+            android:padding="20px"
+            android:textColor="@android:color/darker_gray"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/msg_t"
+            android:text="  Time  "
+            android:textSize="25dp"
+            android:padding="20px"
+            android:textColor="@android:color/darker_gray"
+            />
+
 
     </LinearLayout>
-<TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/u_msg"
-        android:text="hi friend i miss u .. "
+        android:hint="hi friend i miss u .. "
         android:textSize="24dp"
+        android:layout_marginBottom="25dp"
         android:textStyle="italic"
-        android:textColor="@color/text"
-    />
+        android:textColor="#123"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginBottom="15dp"
         >
         <Button
             android:layout_width="0dp"
             android:layout_weight=".1"
-            android:layout_height="wrap_content"
-            android:text="Re-broadcast"
-            android:id="@+id/like"
+            android:layout_height="70px"
+            android:text=""
+            android:padding="5px"
+            android:background="@drawable/bro1"
+            android:id="@+id/reprodcat"
             />
         <Button
 
             android:layout_width="0dp"
             android:layout_weight=".1"
-            android:layout_height="wrap_content"
-            android:text="Interested"
-            android:id="@+id/angry"
+            android:layout_height="70px"
+            android:text=""
+            android:padding="5px"
+            android:background="@drawable/like2"
+            android:id="@+id/like"
             />
-        <Button
-        android:layout_width="0dp"
-        android:layout_weight=".1"
-        android:layout_height="wrap_content"
-        android:text="Annoyed"
-        android:id="@+id/reprodcat"
-        />
         <Button
             android:layout_width="0dp"
             android:layout_weight=".1"
-            android:layout_height="wrap_content"
-            android:text="Replay"
+            android:padding="3px"
+            android:layout_height="70px"
+            android:text=""
+            android:background="@drawable/ann"
+            android:id="@+id/angry"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="70px"
+            android:text=""
+            android:padding="5px"
+            android:background="@drawable/replay"
             android:id="@+id/rep"
             />
     </LinearLayout>

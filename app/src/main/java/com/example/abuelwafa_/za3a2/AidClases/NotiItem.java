@@ -1,10 +1,32 @@
 package com.example.abuelwafa_.za3a2.AidClases;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Abu El Wafa ^_^ on 21/06/2017.
  */
 
-public class NotiItem {
+public class NotiItem implements Parcelable{
+
+    protected NotiItem(Parcel in) {
+        u_name = in.readString();
+        u_msg = in.readString();
+        msg_time = in.readString();
+        Not_id = in.readString();
+    }
+
+    public static final Creator<NotiItem> CREATOR = new Creator<NotiItem>() {
+        @Override
+        public NotiItem createFromParcel(Parcel in) {
+            return new NotiItem(in);
+        }
+
+        @Override
+        public NotiItem[] newArray(int size) {
+            return new NotiItem[size];
+        }
+    };
 
     public String getU_name() {
         return u_name;
@@ -52,4 +74,16 @@ public class NotiItem {
     String Not_id;
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(u_name);
+        parcel.writeString(u_msg);
+        parcel.writeString(msg_time);
+        parcel.writeString(Not_id);
+    }
 }

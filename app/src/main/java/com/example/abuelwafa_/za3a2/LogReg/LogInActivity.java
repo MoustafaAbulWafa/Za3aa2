@@ -1,11 +1,14 @@
 package com.example.abuelwafa_.za3a2.LogReg;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,8 +45,8 @@ Handler handler;
         // check if GPS enabled
         if(gps.canGetLocation()) {
 
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
+            latitude = gps.getLongitude();
+            longitude = gps.getLatitude();
         }
         try {
 
@@ -141,6 +144,8 @@ Handler handler;
             }
         });
         }
+
+
 
     public void displayText(String  str){
 
